@@ -416,6 +416,160 @@
             line-height: 1.6;
         }
 
+        /* Games Section */
+        .games-container {
+            display: flex;
+            gap: 40px;
+            max-width: 1400px;
+            width: 100%;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .game-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(88, 101, 242, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 450px;
+        }
+
+        .game-box h3 {
+            color: #00d4ff;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .game-box canvas {
+            border-radius: 10px;
+            max-width: 100%;
+        }
+
+        .snake-game {
+            text-align: center;
+        }
+
+        .snake-score {
+            background-color: #0f380f;
+            color: #9bbc0f;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        #snakeCanvas {
+            background-color: #9bbc0f;
+            border: 8px solid #0f380f;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        #fireworksCanvas {
+            background: #000;
+            border: 8px solid rgba(88, 101, 242, 0.5);
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.3);
+        }
+
+        .mobile-controls {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(3, 60px);
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .control-btn {
+            background-color: #0f380f;
+            color: #9bbc0f;
+            border: 3px solid #9bbc0f;
+            border-radius: 10px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.1s;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:active {
+            background-color: #9bbc0f;
+            color: #0f380f;
+            transform: scale(0.95);
+        }
+
+        .control-btn.up { grid-column: 2; grid-row: 1; }
+        .control-btn.left { grid-column: 1; grid-row: 2; }
+        .control-btn.center {
+            grid-column: 2;
+            grid-row: 2;
+            background-color: #306230;
+            border-color: #0f380f;
+            font-size: 1em;
+            cursor: default;
+        }
+        .control-btn.right { grid-column: 3; grid-row: 2; }
+        .control-btn.down { grid-column: 2; grid-row: 3; }
+
+        #gameOverScreen {
+            position: absolute;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(15, 56, 15, 0.95);
+            color: #9bbc0f;
+            border-radius: 10px;
+            padding: 40px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            min-width: 300px;
+        }
+
+        #gameOverScreen.show {
+            display: flex;
+        }
+
+        #gameOverScreen h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        #gameOverScreen p {
+            font-size: 1.3em;
+            margin: 10px 0;
+        }
+
+        .restart-btn {
+            background-color: #9bbc0f;
+            color: #0f380f;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+
+        .restart-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .restart-btn:active {
+            transform: scale(0.95);
+        }
+
         /* Contact Section */
         .contact-content {
             max-width: 600px;
@@ -500,6 +654,14 @@
             .nav-links { gap: 20px; font-size: 14px; }
             section { padding: 80px 20px; }
             .projects-grid { grid-template-columns: 1fr; }
+            .games-container { 
+                flex-direction: column;
+                align-items: center;
+            }
+            .game-box {
+                min-width: 100%;
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -521,6 +683,7 @@
             <li><a href="#skills">Skills</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li><a href="#games">Games</a></li>
         </ul>
     </nav>
 
@@ -611,6 +774,39 @@
         </div>
     </section>
 
+    <section id="games">
+        <h2 class="section-title">Interactive Games</h2>
+        <div class="games-container">
+            <!-- Snake Game -->
+            <div class="game-box snake-game">
+                <h3>🐍 Snake Game</h3>
+                <div class="snake-score">Score: <span id="snakeScore">0</span></div>
+                <div style="position: relative;">
+                    <canvas id="snakeCanvas" width="400" height="400"></canvas>
+                    <div id="gameOverScreen">
+                        <h2>GAME OVER!</h2>
+                        <p>Final Score: <span id="finalScore">0</span></p>
+                        <button class="restart-btn" id="restartBtn">PLAY AGAIN</button>
+                    </div>
+                </div>
+                <div class="mobile-controls">
+                    <button class="control-btn up" id="btnUp">▲</button>
+                    <button class="control-btn left" id="btnLeft">◄</button>
+                    <div class="control-btn center">🐍</div>
+                    <button class="control-btn right" id="btnRight">►</button>
+                    <button class="control-btn down" id="btnDown">▼</button>
+                </div>
+            </div>
+
+            <!-- Fireworks -->
+            <div class="game-box">
+                <h3>🎆 Fireworks Display</h3>
+                <canvas id="fireworksCanvas" width="400" height="400"></canvas>
+                <p style="color: #ccc; margin-top: 15px; font-size: 14px;">Enjoy the show!</p>
+            </div>
+        </div>
+    </section>
+
     <script>
         // Create floating particles
         function createParticles() {
@@ -633,6 +829,380 @@
         }
 
         createParticles();
+
+        // ============ SNAKE GAME ============
+        const snakeCanvas = document.getElementById('snakeCanvas');
+        const snakeCtx = snakeCanvas.getContext('2d');
+        const snakeScoreElement = document.getElementById('snakeScore');
+        const finalScoreElement = document.getElementById('finalScore');
+        const gameOverScreen = document.getElementById('gameOverScreen');
+
+        const TILE_SIZE = 20;
+        const GRID_WIDTH = 20;
+        const GRID_HEIGHT = 20;
+        const GAME_SPEED = 100;
+
+        let snake = [];
+        let food = {};
+        let direction = 'RIGHT';
+        let nextDirection = 'RIGHT';
+        let running = false;
+        let gameOver = false;
+        let score = 0;
+        let gameLoop = null;
+
+        function setupMobileControls() {
+            const btnUp = document.getElementById('btnUp');
+            const btnDown = document.getElementById('btnDown');
+            const btnLeft = document.getElementById('btnLeft');
+            const btnRight = document.getElementById('btnRight');
+
+            // Prevent default touch behavior
+            [btnUp, btnDown, btnLeft, btnRight].forEach(btn => {
+                btn.addEventListener('touchstart', (e) => e.preventDefault());
+            });
+
+            btnUp.addEventListener('click', () => {
+                if (running && direction !== 'DOWN') nextDirection = 'UP';
+            });
+
+            btnDown.addEventListener('click', () => {
+                if (running && direction !== 'UP') nextDirection = 'DOWN';
+            });
+
+            btnLeft.addEventListener('click', () => {
+                if (running && direction !== 'RIGHT') nextDirection = 'LEFT';
+            });
+
+            btnRight.addEventListener('click', () => {
+                if (running && direction !== 'LEFT') nextDirection = 'RIGHT';
+            });
+
+            // Touch support for better mobile experience
+            btnUp.addEventListener('touchstart', (e) => {
+                if (running && direction !== 'DOWN') nextDirection = 'UP';
+            });
+
+            btnDown.addEventListener('touchstart', (e) => {
+                if (running && direction !== 'UP') nextDirection = 'DOWN';
+            });
+
+            btnLeft.addEventListener('touchstart', (e) => {
+                if (running && direction !== 'RIGHT') nextDirection = 'LEFT';
+            });
+
+            btnRight.addEventListener('touchstart', (e) => {
+                if (running && direction !== 'LEFT') nextDirection = 'RIGHT';
+            });
+        }
+
+        function startGame() {
+            snake = [
+                { x: 5, y: 5 },
+                { x: 4, y: 5 },
+                { x: 3, y: 5 }
+            ];
+            
+            direction = 'RIGHT';
+            nextDirection = 'RIGHT';
+            score = 0;
+            gameOver = false;
+            running = true;
+            
+            updateScore();
+            gameOverScreen.classList.remove('show');
+            spawnFood();
+            
+            if (gameLoop) clearInterval(gameLoop);
+            gameLoop = setInterval(update, GAME_SPEED);
+        }
+
+        function spawnFood() {
+            let validPosition = false;
+            while (!validPosition) {
+                food = {
+                    x: Math.floor(Math.random() * GRID_WIDTH),
+                    y: Math.floor(Math.random() * GRID_HEIGHT)
+                };
+                validPosition = !snake.some(segment => 
+                    segment.x === food.x && segment.y === food.y
+                );
+            }
+        }
+
+        function update() {
+            if (!running) return;
+
+            direction = nextDirection;
+            const head = { ...snake[0] };
+
+            switch (direction) {
+                case 'UP': head.y--; break;
+                case 'DOWN': head.y++; break;
+                case 'LEFT': head.x--; break;
+                case 'RIGHT': head.x++; break;
+            }
+
+            // Check wall collision
+            if (head.x < 0 || head.x >= GRID_WIDTH || 
+                head.y < 0 || head.y >= GRID_HEIGHT) {
+                endGame();
+                return;
+            }
+
+            // Check self collision
+            if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+                endGame();
+                return;
+            }
+
+            snake.unshift(head);
+
+            // Check if food is eaten
+            if (head.x === food.x && head.y === food.y) {
+                score += 10;
+                updateScore();
+                spawnFood();
+            } else {
+                snake.pop();
+            }
+
+            draw();
+        }
+
+        function draw() {
+            // Clear canvas
+            snakeCtx.fillStyle = '#9bbc0f';
+            snakeCtx.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
+
+            // Draw food
+            snakeCtx.fillStyle = '#306230';
+            snakeCtx.fillRect(
+                food.x * TILE_SIZE,
+                food.y * TILE_SIZE,
+                TILE_SIZE,
+                TILE_SIZE
+            );
+
+            // Draw snake
+            snake.forEach((segment, index) => {
+                snakeCtx.fillStyle = index === 0 ? '#0f380f' : '#306230';
+                snakeCtx.fillRect(
+                    segment.x * TILE_SIZE,
+                    segment.y * TILE_SIZE,
+                    TILE_SIZE,
+                    TILE_SIZE
+                );
+            });
+        }
+
+        function endGame() {
+            running = false;
+            gameOver = true;
+            clearInterval(gameLoop);
+            finalScoreElement.textContent = score;
+            gameOverScreen.classList.add('show');
+        }
+
+        function updateScore() {
+            snakeScoreElement.textContent = score;
+        }
+
+        function restartGame() {
+            startGame();
+        }
+
+        // Restart button
+        document.getElementById('restartBtn').addEventListener('click', restartGame);
+
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (gameOver && e.code === 'Space') {
+                restartGame();
+                return;
+            }
+
+            if (!running) return;
+
+            switch (e.key) {
+                case 'ArrowUp':
+                case 'w':
+                case 'W':
+                    if (direction !== 'DOWN') nextDirection = 'UP';
+                    e.preventDefault();
+                    break;
+                case 'ArrowDown':
+                case 's':
+                case 'S':
+                    if (direction !== 'UP') nextDirection = 'DOWN';
+                    e.preventDefault();
+                    break;
+                case 'ArrowLeft':
+                case 'a':
+                case 'A':
+                    if (direction !== 'RIGHT') nextDirection = 'LEFT';
+                    e.preventDefault();
+                    break;
+                case 'ArrowRight':
+                case 'd':
+                case 'D':
+                    if (direction !== 'LEFT') nextDirection = 'RIGHT';
+                    e.preventDefault();
+                    break;
+            }
+        });
+
+        setupMobileControls();
+        startGame();
+
+        // ============ FIREWORKS ============
+        const fwCanvas = document.getElementById('fireworksCanvas');
+        const fwCtx = fwCanvas.getContext('2d');
+
+        class FWParticle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 8,
+                    y: (Math.random() - 0.5) * 8
+                };
+                this.alpha = 1;
+                this.decay = Math.random() * 0.015 + 0.01;
+                this.gravity = 0.05;
+                this.size = Math.random() * 3 + 1;
+            }
+            
+            update() {
+                this.velocity.y += this.gravity;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= this.decay;
+            }
+            
+            draw() {
+                fwCtx.save();
+                fwCtx.globalAlpha = this.alpha;
+                fwCtx.fillStyle = this.color;
+                fwCtx.beginPath();
+                fwCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                fwCtx.fill();
+                fwCtx.restore();
+            }
+        }
+        
+        class FWFirework {
+            constructor() {
+                this.x = Math.random() * fwCanvas.width;
+                this.y = fwCanvas.height;
+                this.targetY = Math.random() * fwCanvas.height * 0.5 + 50;
+                this.velocity = (this.y - this.targetY) / 60;
+                this.particles = [];
+                this.exploded = false;
+                this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+                this.trailParticles = [];
+            }
+            
+            update() {
+                if (!this.exploded) {
+                    this.y -= this.velocity;
+                    
+                    // Add trail
+                    if (Math.random() < 0.3) {
+                        this.trailParticles.push({
+                            x: this.x,
+                            y: this.y,
+                            alpha: 0.5,
+                            size: 2
+                        });
+                    }
+                    
+                    if (this.y <= this.targetY) {
+                        this.explode();
+                    }
+                } else {
+                    this.particles.forEach((p, i) => {
+                        p.update();
+                        if (p.alpha <= 0) {
+                            this.particles.splice(i, 1);
+                        }
+                    });
+                }
+                
+                // Update trail
+                this.trailParticles.forEach((t, i) => {
+                    t.alpha -= 0.02;
+                    if (t.alpha <= 0) {
+                        this.trailParticles.splice(i, 1);
+                    }
+                });
+            }
+            
+            explode() {
+                this.exploded = true;
+                const particleCount = Math.random() * 50 + 100;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    this.particles.push(new FWParticle(this.x, this.y, this.color));
+                }
+            }
+            
+            draw() {
+                if (!this.exploded) {
+                    // Draw trail
+                    this.trailParticles.forEach(t => {
+                        fwCtx.save();
+                        fwCtx.globalAlpha = t.alpha;
+                        fwCtx.fillStyle = this.color;
+                        fwCtx.beginPath();
+                        fwCtx.arc(t.x, t.y, t.size, 0, Math.PI * 2);
+                        fwCtx.fill();
+                        fwCtx.restore();
+                    });
+                    
+                    // Draw rocket
+                    fwCtx.fillStyle = this.color;
+                    fwCtx.beginPath();
+                    fwCtx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                    fwCtx.fill();
+                } else {
+                    this.particles.forEach(p => p.draw());
+                }
+            }
+            
+            isDone() {
+                return this.exploded && this.particles.length === 0;
+            }
+        }
+        
+        const fwFireworks = [];
+        let fwLastFireworkTime = 0;
+        
+        function animateFireworks(currentTime) {
+            fwCtx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            fwCtx.fillRect(0, 0, fwCanvas.width, fwCanvas.height);
+            
+            // Launch new fireworks
+            if (currentTime - fwLastFireworkTime > Math.random() * 500 + 500) {
+                fwFireworks.push(new FWFirework());
+                fwLastFireworkTime = currentTime;
+            }
+            
+            // Update and draw fireworks
+            fwFireworks.forEach((fw, i) => {
+                fw.update();
+                fw.draw();
+                
+                if (fw.isDone()) {
+                    fwFireworks.splice(i, 1);
+                }
+            });
+            
+            requestAnimationFrame(animateFireworks);
+        }
+        
+        animateFireworks(0);
 
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
