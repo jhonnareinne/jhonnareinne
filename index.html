@@ -161,12 +161,12 @@
             border-bottom: 1px solid rgba(88, 101, 242, 0.3);
         }
 
-      .logo {
+        .logo {
             font-size: 28px;
             font-weight: bold;
             background: linear-gradient(45deg, #5865f2, #00d4ff);
-            background-clip: text;           /* Standard version - Adds this line */
-            -webkit-background-clip: text;    /* Chrome/Safari version */
+            background-clip: text;
+            -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             cursor: pointer;
             transition: transform 0.3s;
@@ -220,12 +220,12 @@
             z-index: 2;
         }
 
-         .hero h1 {
+        .hero h1 {
             font-size: 80px;
             font-weight: 900;
             margin-bottom: 20px;
             background: linear-gradient(45deg, #5865f2, #00d4ff, #7289da);
-            background-clip: text;           /* Standard version - Adds this line */
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: slideUp 1s ease;
@@ -284,11 +284,12 @@
             padding: 100px 50px;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
         }
 
-         .section-title {
+        .section-title {
             font-size: 50px;
             margin-bottom: 60px;
             text-align: center;
@@ -297,9 +298,11 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
         /* About Section */
         .about-content {
             max-width: 1200px;
+            width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
@@ -313,23 +316,21 @@
         }
 
         .about-image {
-    width: 100%;
-    height: 400px;
-    background: linear-gradient(135deg, #5865f2, #00d4ff);
-    border-radius: 20px;
-    position: relative;
-    overflow: hidden;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-        .about-image::before {
-            content: '';
-            position: absolute;
-            font-size: 200px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(88, 101, 242, 0.4);
+            border: 4px solid rgba(88, 101, 242, 0.5);
+            margin: 0 auto;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         /* Skills Section */
@@ -462,6 +463,7 @@
             font-size: 24px;
             transition: all 0.3s;
             cursor: pointer;
+            text-decoration: none;
         }
 
         .social-icon:hover {
@@ -476,6 +478,7 @@
             left: 50%;
             transform: translateX(-50%);
             animation: bounce 2s infinite;
+            transition: opacity 0.3s;
         }
 
         @keyframes bounce {
@@ -495,6 +498,8 @@
             .about-content { grid-template-columns: 1fr; }
             nav { padding: 20px; }
             .nav-links { gap: 20px; font-size: 14px; }
+            section { padding: 80px 20px; }
+            .projects-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -523,78 +528,74 @@
         <div class="hero-content">
             <h1>Hi, I'm Jhonna Iguis</h1>
             <p>IT Student | Aspiring Web Developer & Designer</p>
+            <button class="cta-btn">View My Work</button>
         </div>
         <div class="scroll-indicator"></div>
     </section>
 
     <section id="about">
-        <div style="width: 100%;">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>"I am a dedicated software engineer with over 5 years of experience crafting seamless web interfaces. I specialize in distilling complex technical challenges into elegant, intuitive designs that prioritize the user experience."</p>
-                    <br>
-                </div>
-          <div class="about-image" style="background-image: url('pic.jpg');"></div>
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>"I am a dedicated software engineer with over 5 years of experience crafting seamless web interfaces. I specialize in distilling complex technical challenges into elegant, intuitive designs that prioritize the user experience."</p>
+            </div>
+            <div class="about-image">
+                <img src="pic.jpg" alt="Jhonna Iguis - Profile Photo">
             </div>
         </div>
     </section>
 
     <section id="skills">
-        <div style="width: 100%;">
-            <h2 class="section-title">My Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">💻</div>
-                    <h3>Modern Web Technologies</h3>
-                    <p>HTML5, CSS3, JavaScript, React Basics</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">🎨</div>
-                    <h3>Web Design</h3>
-                    <p>Canva, Figma,Photoshop basics/WIreframing</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">🔧</div>
-                    <h3>Tools & Technologies</h3>
-                    <p>GitHub, VS Code</p>
-                </div>
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon">💻</div>
+                <h3>Modern Web Technologies</h3>
+                <p>HTML5, CSS3, JavaScript, React Basics</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🎨</div>
+                <h3>Web Design</h3>
+                <p>Canva, Figma, Photoshop basics/Wireframing</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🔧</div>
+                <h3>Tools & Technologies</h3>
+                <p>GitHub, VS Code</p>
+            </div>
         </div>
     </section>
 
     <section id="projects">
-        <div style="width: 100%;">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">📚</div>
-                    <div class="project-info">
-                        <h3>Library Management System</h3>
-                        <p>Web-based system for managing books, members, and borrowing records with search and filter features.</p>
-                    </div>
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">📚</div>
+                <div class="project-info">
+                    <h3>Library Management System</h3>
+                    <p>Web-based system for managing books, members, and borrowing records with search and filter features.</p>
                 </div>
-                <div class="project-card">
-                    <div class="project-image">🎓</div>
-                    <div class="project-info">
-                        <h3>Student Grade Calculator</h3>
-                        <p>Interactive calculator for computing GPA, semester grades, and academic performance tracking with visual charts.</p>
-                    </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">🎓</div>
+                <div class="project-info">
+                    <h3>Student Grade Calculator</h3>
+                    <p>Interactive calculator for computing GPA, semester grades, and academic performance tracking with visual charts.</p>
                 </div>
-                <div class="project-card">
-                    <div class="project-image">🍔</div>
-                    <div class="project-info">
-                        <h3>Food Ordering Website</h3>
-                        <p>Responsive restaurant website with menu display, shopping cart functionality, and order summary features.</p>
-                    </div>
-                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">🍔</div>
+                <div class="project-info">
+                    <h3>Food Ordering Website</h3>
+                    <p>Responsive restaurant website with menu display, shopping cart functionality, and order summary features.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
         <div class="contact-content">
-            <h2 class="section-title">Get In Touch</h2>
             <p style="color: #ccc; margin-bottom: 20px;">Have a project in mind? Let's work together!</p>
             <form class="contact-form">
                 <input type="text" placeholder="Your Name" required>
@@ -602,12 +603,11 @@
                 <textarea placeholder="Your Message" required></textarea>
                 <button type="submit" class="cta-btn">Send Message</button>
             </form>
-          <div class="social-links">
-            <a href="jhonnareinne5@gmail.com" class="social-icon" title="Email Me">📧</a>
-            <a href="https://facebook.com/JhonnaReinne" target="_blank" class="social-icon">🔵</a>
-            <a href="https://instagram.com/seraphicmwa" target="_blank" class="social-icon">📷</a>
-        </div>
-        </div>
+            <div class="social-links">
+                <a href="mailto:jhonnareinne5@gmail.com" class="social-icon" title="Email Me">📧</a>
+                <a href="https://facebook.com/JhonnaReinne" target="_blank" class="social-icon">🔵</a>
+                <a href="https://instagram.com/seraphicmwa" target="_blank" class="social-icon">📷</a>
+            </div>
         </div>
     </section>
 
